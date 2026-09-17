@@ -10,33 +10,125 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardSkillsRouteImport } from './routes/dashboard/skills'
+import { Route as SkillsSkillIdRouteImport } from './routes/skills/$skillId'
+import { Route as SkillsNewRouteImport } from './routes/skills/new'
+import { Route as UsersUsernameSkillsSkillIdRouteImport } from './routes/users/$username/skills/$skillId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRouteRoute = DashboardRouteRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardSkillsRoute = DashboardSkillsRouteImport.update({
+  id: '/skills',
+  path: '/skills',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const SkillsSkillIdRoute = SkillsSkillIdRouteImport.update({
+  id: '/skills/$skillId',
+  path: '/skills/$skillId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SkillsNewRoute = SkillsNewRouteImport.update({
+  id: '/skills/new',
+  path: '/skills/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UsersUsernameSkillsSkillIdRoute =
+  UsersUsernameSkillsSkillIdRouteImport.update({
+    id: '/users/$username/skills/$skillId',
+    path: '/users/$username/skills/$skillId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/dashboard/skills': typeof DashboardSkillsRoute
+  '/skills/$skillId': typeof SkillsSkillIdRoute
+  '/skills/new': typeof SkillsNewRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/users/$username/skills/$skillId': typeof UsersUsernameSkillsSkillIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/dashboard/skills': typeof DashboardSkillsRoute
+  '/skills/$skillId': typeof SkillsSkillIdRoute
+  '/skills/new': typeof SkillsNewRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/users/$username/skills/$skillId': typeof UsersUsernameSkillsSkillIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/dashboard/skills': typeof DashboardSkillsRoute
+  '/skills/$skillId': typeof SkillsSkillIdRoute
+  '/skills/new': typeof SkillsNewRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/users/$username/skills/$skillId': typeof UsersUsernameSkillsSkillIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/contact'
+    | '/dashboard/skills'
+    | '/skills/$skillId'
+    | '/skills/new'
+    | '/dashboard/'
+    | '/users/$username/skills/$skillId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/contact'
+    | '/dashboard/skills'
+    | '/skills/$skillId'
+    | '/skills/new'
+    | '/dashboard'
+    | '/users/$username/skills/$skillId'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/contact'
+    | '/dashboard/skills'
+    | '/skills/$skillId'
+    | '/skills/new'
+    | '/dashboard/'
+    | '/users/$username/skills/$skillId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  SkillsSkillIdRoute: typeof SkillsSkillIdRoute
+  SkillsNewRoute: typeof SkillsNewRoute
+  UsersUsernameSkillsSkillIdRoute: typeof UsersUsernameSkillsSkillIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +140,79 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/skills': {
+      id: '/dashboard/skills'
+      path: '/skills'
+      fullPath: '/dashboard/skills'
+      preLoaderRoute: typeof DashboardSkillsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/skills/$skillId': {
+      id: '/skills/$skillId'
+      path: '/skills/$skillId'
+      fullPath: '/skills/$skillId'
+      preLoaderRoute: typeof SkillsSkillIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/skills/new': {
+      id: '/skills/new'
+      path: '/skills/new'
+      fullPath: '/skills/new'
+      preLoaderRoute: typeof SkillsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/users/$username/skills/$skillId': {
+      id: '/users/$username/skills/$skillId'
+      path: '/users/$username/skills/$skillId'
+      fullPath: '/users/$username/skills/$skillId'
+      preLoaderRoute: typeof UsersUsernameSkillsSkillIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface DashboardRouteRouteChildren {
+  DashboardSkillsRoute: typeof DashboardSkillsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardSkillsRoute: DashboardSkillsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
+  DashboardRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  ContactRoute: ContactRoute,
+  SkillsSkillIdRoute: SkillsSkillIdRoute,
+  SkillsNewRoute: SkillsNewRoute,
+  UsersUsernameSkillsSkillIdRoute: UsersUsernameSkillsSkillIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
