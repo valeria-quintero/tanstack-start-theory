@@ -12,3 +12,11 @@ export const getPokemonFn = createServerFn({ method: 'GET'}).handler(async () =>
 
     return data;
 })
+
+export const saveFavoritePokemonFn = createServerFn({ method: 'POST'}).inputValidator((name: string) => name).handler(async ({ data }) => {
+    console.log('Saving data to our secure database...');
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return { success: true, data }
+})
